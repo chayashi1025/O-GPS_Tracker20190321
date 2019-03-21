@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>O-GPS Tracker for ICMR2018 ~GPSトラッキングアプリ~</title>
+  <!-- jQuery -->
+  <script src="js/jquery.min.js"></script>
+  <!--Leaflet-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+  <!--Sidebar -->
+  <link rel="stylesheet" href="./css/leaflet-sidebar.css" />
+  <script src="./js/leaflet-sidebar.js"></script>
+
+  <!--Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <script src="js/a_readPL.js" charset="utf-8"></script>
+  <script src="js/db_leaflet.js" charset="utf-8"></script>
+  <script src="js/c_ui.js" charset="utf-8"></script>
+  <script src="js/k1_makeOrbit.js" charset="utf-8"></script>
+  <script src="js/initialize.js" charset="utf-8"></script>
+  <script src="js/Leaflet.ImageOverlay.Rotated.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+  <!--<div id="header" style="text-align:center">インカレリレー2018@望郷の森</div>-->
+  <div id="sidebar" class="sidebar collapsed">
+    <!-- Nav tabs -->
+    <div class="sidebar-tabs">
+      <ul role="tablist">
+        <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+        <li><a href="#runner-select" role="tab"><i class="fa fa-user"></i></a></li>
+        <li><a href="#option" role="tab"><i class="fa fa-user"></i></a></li>
+        <li><a href="#sns-share" role="tab"><i class="fa fa-user"></i></a></li>
+      </ul>
+      <ul role="tablist">
+        <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+      </ul>
+    </div>
+
+    <!-- Tab panes -->
+    <div class="sidebar-content">
+      <div class="sidebar-pane" id="home">
+        <h1 class="sidebar-header">
+          O-GPS Tracker for ICMR2018
+          <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+        <p>
+          Webで閲覧可能なGPSトラッキングツールです．
+          <ul>
+            <li>[ランナー]アイコンから中継する選手を選択しよう！</li>
+            <li>[歯車]アイコンから表示方法を調整しよう！</li>
+            <li>[SNS]アイコンからSNSにシェアしてみんなで中継を楽しもう！</li>
+          </ul>
+        </p>
+        <hr>
+        <p class="link">
+          <ul>
+            <li><a href="http://www.orienteering.com/~icmr2018/" target="_blank" class="text-link">ICMR2018 HP</a></li>
+            <li><a href="https://mulka2.com/lapcenter/" target="_blank" class="text-link">Lap Center</a></li>
+          </ul>
+        </p>
+        <p class="copyright">
+          ©️C.Hayashi 2019 <a href="https://twitter.com/xyhorusu">@xyhorusu</a>
+        </p>
+
+      </div>
+      <div class="sidebar-pane" id="runner-select">
+        <h1 class="sidebar-header">
+          Runner List
+          <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+        <div class="menu">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th></th>
+                <th>1st/3rd</th>
+                <th>2nd</th>
+              </tr>
+            </thead>
+            <tbody id="runnerListRecord"></tbody>
+          </table>
+        </div>
+      </div>
+      <!--#runnerselect-->
+      <div class="sidebar-pane" id="option">
+        <h1 class="sidebar-header">
+          Option
+          <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+        <div id="settings-contents" class="setting-option"></div>
+      </div>
+
+      <div class="sidebar-pane" id="sns-share">
+        <h1 class="sidebar-header">
+          SNS Share
+          <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+        みんなで中継を楽しもう！
+        <hr width="100%">
+        <div class="container">
+          <div class="row">
+            <div class="col"><a href="https://twitter.com/intent/tweet?url=http://www.antifragile.tokyo/&hashtags=俺たちのインカレ,ICMR2018,orienteering" target="blank_"><img src="./src/icon_tw.png" alt="SNS Share(Twitter)" width=100%></a>
+            </div>
+            <div class="col"><a href="http://www.facebook.com/share.php?u=http://www.antifragile.tokyo/" target="_blank" rel="nofollow"><img src="./src/icon_fb.png" alt="SNS Share(Facebook)" width=100%></a>
+            </div>
+            <div class="col"><a href="http://line.me/R/msg/text/?O-GPS Tracker http://www.antifragile.tokyo/" target="_blank" rel="nofollow"><img src="./src/icon_ln.png" alt="SNS Share(Line)" width=100%></a></div>
+          </div>
+        </div>
+        <hr width="100%">
+      </div><!--sns-->
+    </div>
+    <!--End of Sidebar Content-->
+  </div>
+  <!--End of Sidebar -->
+  <!--leaflet -->
+  <div id="map" class="sidebar-map"></div>
+</body>
+
+</html>
